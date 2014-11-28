@@ -43,12 +43,12 @@ function displayWork() {
 		"name": "Hesham Al-Zaemey",
 		"role": "Web Developer",
 		"welcomeMessage": "Hello, thank you for visiting my Resume/CV. Please do not hisitate to drop a message if you like.",
-		"contact": {
+		"contacts": {
 			"mobile": "+61403860545",
 			"email": "hzaemey@gmail.com",
 			"github": "hzaemey",
 			"twitter": "@hzaemey",
-			"location": "Sydney (AUS)"
+			"location": "Sydney"
 		},
 		"skills": ["HTML", "CSS", "Web Developer", "PHP", "UX", "Cloud Computing", "Git", "Website Deployment"],
 		"bloPic": "images/fry.jpg"
@@ -63,19 +63,19 @@ function displayWork() {
 	var formattedWelcomeMsg = HTMLWelcomeMsg.replace("%data%", bio.welcomeMessage);
 	$("#header").append(formattedWelcomeMsg);
 
-	var formattedmobile = HTMLmobile.replace("%data%", bio.contact.mobile);
+	var formattedmobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
 	$("#topContacts").append(formattedmobile);
 
-	var formattedemail = HTMLemail.replace("%data%", bio.contact.email);
+	var formattedemail = HTMLemail.replace("%data%", bio.contacts.email);
 	$("#topContacts").append(formattedemail);
 
-	var formattedgithub = HTMLgithub.replace("%data%", bio.contact.github);
+	var formattedgithub = HTMLgithub.replace("%data%", bio.contacts.github);
 	$("#topContacts").append(formattedgithub);
 
-	var formattedtwitter = HTMLtwitter.replace("%data%", bio.contact.twitter);
+	var formattedtwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
 	$("#topContacts").append(formattedtwitter);
 
-	var formattedlocation = HTMLlocation.replace("%data%", bio.contact.location);
+	var formattedlocation = HTMLlocation.replace("%data%", bio.contacts.location);
 	$("#topContacts").append(formattedlocation);
 
 	var formattedBioPic = HTMLbioPic.replace("%data%", bio.bloPic);
@@ -141,22 +141,23 @@ function displayWork() {
 
 
 	for (school in education.schools) {
+		$("#education").append(HTMLschoolStart);
 
 		var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[school].name);
-		$(".education-entry").append(formattedSchoolName);
+		$(".education-entry:last").append(formattedSchoolName);
 
 		var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
-		$(".education-entry").append(formattedSchoolLocation);
+		$(".education-entry:last").append(formattedSchoolLocation);
 
 		var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
-		$(".education-entry").append(formattedSchoolDegree);
+		$(".education-entry:last").append(formattedSchoolDegree);
 
 		var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[school].name);
-		$(".education-entry").append(formattedSchoolName);
+		$(".education-entry:last").append(formattedSchoolName);
 
 		var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
-		$(".education-entry").append(formattedSchoolLocation);
-	}
+		$(".education-entry:last").append(formattedSchoolLocation);
+	};
 
 	var work = {
 		"jobs": [ 
@@ -225,19 +226,41 @@ function displayWork() {
 		var formattedProjectDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
 		$(".project-entry:last").append(formattedProjectDescription);
 
-		var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
-		$(".project-entry:last").append(formattedProjectImage);
-	}
-}
+		if(projects.projects[project].images.length > 0) {
+			for (image in projects.projects[project].images) {
+				var formattedProjectImage = HTMLprojectImage.replace("%data%", projects.projects[project].images);
+				$(".project-entry:last").append(formattedProjectImage);
+			}
+		}
+	
+	};
+};
 
 displayWork();
 
 function locationizer (work_obj) {
 	var locationArray = [];
 
-	for (job in work.jobs) {
-		var locationCount = work.jobs[job].location;
-		var locationArray.push (locationCount);
+	for (job in work_obj.jobs) {
+		var locationCount = work_obj.jobs[job].location;
+		locationArray.push (locationCount);
 	}
 	return locationArray;
 }
+
+// console.log(locationizer(work_obj));
+
+function inName(name) {
+	var name = name.$.trim().split(" ");
+	console.log(name);
+	name[1] = name[1].toUpperCase();
+	name[0] = name[0].slice(0,1).toUpperCase() + name[0].slice(1).toLowerCase();
+
+	return name[0] +" "+ name[1];
+}
+
+$('#main').append(internationalizeButton);
+
+// you wnat to see a map? here's a map.
+$("#mapDiv").append(googleMap);
+
