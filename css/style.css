@@ -217,3 +217,17 @@ span {
     display: block;
   }
 }
+
+/*********CUSTOM STYLING**************/
+li.flex-item {
+    background: #888;
+    display: inline;
+    padding: 11px;
+    /* margin: 11px; */
+    border-right: 1px solid #bbb;
+    border-left: 1px solid #555;
+}
+
+#topContacts li.flex-item {
+    border-radius: 9px;
+}
